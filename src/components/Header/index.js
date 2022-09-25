@@ -9,9 +9,10 @@ import PopperItem from '../PopperItem';
 import Search from './components/Search';
 import { useState } from 'react';
 import { getTrending } from '~/untils/request';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addTrending } from '~/redux/trendingSlice';
 import { updateShowItemSearchResult } from '~/redux/showItemSearchResultSlice';
+import TextInHeader from './components/TextInHeader';
 
 function Header() {
     const dispatch = useDispatch();
@@ -36,6 +37,8 @@ function Header() {
             fetchApi();
         }
     };
+
+    const [userActive, setUserActive] = useState(false);
 
     return (
         <>
@@ -91,25 +94,33 @@ function Header() {
                                     TV Shows
                                 </Link>
                             </Tippy>
-                            <Link className="text-white mx-10 font-[600]" to="/person">
-                                People
-                            </Link>
+                            <TextInHeader to="/person">People</TextInHeader>
                         </div>
                         <div className="header-right">
                             <ul className="h-full w-auto flex flex-nowrap items-center justify-end">
-                                <li className="cursor-pointer aspect-square h-[30px] leading-[30px] border-2 rounded-md text-white">
+                                <li className="cursor-pointer aspect-square h-[30px] leading-[30px] border-2 rounded-md text-white hover:bg-white hover:text-black">
                                     VI
                                 </li>
                                 <li className="relative py-2 cursor-pointer">
-                                    <FontAwesomeIcon className="text-white mx-10" size="lg" icon={faBell} />
-                                    <div className="rounded-[50%] absolute top-0 right-4 aspect-square h-[15px] text-[10px] bg-[#c61439] text-white">
-                                        2
-                                    </div>
+                                    {userActive ? (
+                                        <>
+                                            <FontAwesomeIcon className="text-white mx-10" size="lg" icon={faBell} />
+                                            <div className="rounded-[50%] absolute top-0 right-4 aspect-square h-[15px] text-[10px] bg-[#c61439] text-white">
+                                                2
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <TextInHeader to="/login">Login</TextInHeader>
+                                    )}
                                 </li>
                                 <li className="cursor-pointer">
-                                    <div className="aspect-square h-[40px] rounded-[50%] overflow-hidden ">
-                                        <img alt="avatar" src={images.avatar} />
-                                    </div>
+                                    {userActive ? (
+                                        <div className="aspect-square h-[40px] rounded-[50%] overflow-hidden ">
+                                            <img alt="avatar" src={images.avatar} />
+                                        </div>
+                                    ) : (
+                                        <TextInHeader to="/signup">Join TMDB</TextInHeader>
+                                    )}
                                 </li>
                                 <li className="px-10 cursor-pointer" onClick={handleClickSearch}>
                                     {showSearchResult ? (

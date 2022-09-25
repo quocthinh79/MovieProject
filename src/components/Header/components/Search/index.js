@@ -7,22 +7,7 @@ import SearchInput, { InputContext } from '../SearchInput';
 import SearchResultItem from '../SearchResultItem';
 
 function Search() {
-    const [resultSearchKeyword, setResultSearchKeyWord] = useState([]);
     const resultSearchTrending = useSelector((state) => state.trending);
-    const [showHeader, setShowHeader] = useState(true);
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const responseSearchKeywords = await getSearchKeywords({
-                params: {
-                    api_key: process.env.REACT_APP_API_KEY,
-                    query: 'one',
-                },
-            });
-            setResultSearchKeyWord(responseSearchKeywords);
-        };
-        fetchApi();
-    }, []);
 
     // const stateInputSearch = useSelector((state) => state);
 
@@ -33,21 +18,19 @@ function Search() {
     useEffect(() => {
         function handleClickOutside(event) {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-                // alert('You clicked outside of me!');
-                // setShowItemSearchResult(false);
                 showItemSearchResultDispatch(updateShowItemSearchResult(false));
             }
         }
-        // Bind the event listener
+        window.addEventListener('mousedown', handleClickOutside);
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            // Unbind the event listener on clean up
+            window.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [wrapperRef]);
 
     return (
-        <div ref={wrapperRef} className="search absolute left-0 right-0">
+        <div ref={wrapperRef} className="search absolute left-0 right-0 z-[9999] bg-white h-fit">
             <SearchInput></SearchInput>
             {stateInRedux.showItemSearchResult && !stateInRedux.inputSearch && <HeaderSearch />}
             {stateInRedux.searchKeyWord.length === 0 &&
@@ -69,33 +52,27 @@ function Search() {
                     }
                     return result;
                 })}
-            {stateInRedux.movie.map((item, index) => {
-                if (index < 1) {
-                    return (
-                        <SearchResultItem id={item.id} key={index} media_type="movie">
-                            {item.title}
-                        </SearchResultItem>
-                    );
-                }
-            })}
-            {stateInRedux.tvShow.map((item, index) => {
-                if (index < 1) {
-                    return (
-                        <SearchResultItem id={item.id} key={index} media_type="tv">
-                            {item.name}
-                        </SearchResultItem>
-                    );
-                }
-            })}
-            {stateInRedux.person.map((item, index) => {
-                if (index < 1) {
-                    return (
-                        <SearchResultItem id={item.id} key={index} media_type="person">
-                            {item.name}
-                        </SearchResultItem>
-                    );
-                }
-            })}
+            {stateInRedux.movie.length > 0 ? (
+                <SearchResultItem id={stateInRedux.movie[0].id} key={stateInRedux.movie[0].id} media_type="movie">
+                    {stateInRedux.movie[0].title}
+                </SearchResultItem>
+            ) : (
+                <Fragment />
+            )}
+            {stateInRedux.tvShow.length > 0 ? (
+                <SearchResultItem id={stateInRedux.tvShow[0].id} key={stateInRedux.tvShow[0].id} media_type="tv">
+                    {stateInRedux.tvShow[0].name}
+                </SearchResultItem>
+            ) : (
+                <Fragment />
+            )}
+            {stateInRedux.person.length > 0 ? (
+                <SearchResultItem id={stateInRedux.person[0].id} key={stateInRedux.person[0].id} media_type="person">
+                    {stateInRedux.person[0].name}
+                </SearchResultItem>
+            ) : (
+                <Fragment />
+            )}
             {stateInRedux.searchKeyWord.map((item, index) => {
                 if (index < 10) {
                     return (

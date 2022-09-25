@@ -14,7 +14,7 @@ import './SearchInput.scss';
 
 function SearchInput() {
     const [searchValue, setSearchValue] = useState('');
-    const debounce = useDebounce(searchValue, 350);
+    const debounce = useDebounce(searchValue, 100);
 
     const dispatch = useDispatch();
     const stateInRedux = useSelector((state) => state);

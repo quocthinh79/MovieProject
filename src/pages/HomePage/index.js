@@ -1,5 +1,13 @@
+
+import Slide from './components/Slide';
+
 function HomePage() {
-    return <div>Home page</div>;
+    return (
+        <>
+            <Slide />
+            <div>Home page</div>
+        </>
+    );
 }
 
 export default HomePage;
