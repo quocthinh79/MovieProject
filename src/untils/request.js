@@ -5,8 +5,8 @@ const request = axios.create({
 });
 
 export const apiConfigImage = {
-    originalImage: (imgPath) => `https://image.tmdb.org/t/p/original/${imgPath}`,
-    w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500/${imgPath}`,
+    originalImage: (imgPath) => `https://image.tmdb.org/t/p/original${imgPath}`,
+    w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500${imgPath}`,
 };
 export const apiConfigVideo = {
     youtubeEmbed: (idVideo) => `https://www.youtube.com/embed/${idVideo}`,

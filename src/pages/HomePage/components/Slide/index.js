@@ -8,9 +8,13 @@ import 'swiper/scss/pagination';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import Popup from '~/components/Popup';
+import CircleRated from '~/components/Header/components/CircleRated';
+import images from '~/assets/images';
+import getAverageColor from 'get-average-color';
+import { list } from 'postcss';
+import { FastAverageColor } from 'fast-average-color';
 function Slide() {
-    //     SwiperCore.use([Autoplay]);
-
     const [listMovieTopRated, setListMovieTopRated] = useState([]);
 
     useEffect(() => {
@@ -24,6 +28,22 @@ function Slide() {
                 'movie',
                 'week',
             );
+
+            async function getAverageColor(imgUrl, item, index) {
+                const fac = new FastAverageColor();
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.crossOrigin = 'Anonymous';
+                const color = await fac.getColorAsync(img).then((col) => {
+                    return col;
+                });
+                const valueColor = { R: color.value[0], G: color.value[1], B: color.value[2] };
+                const divBg = document.querySelector(`#div_bg_image_${item.id}`);
+                divBg.style.background = `linear-gradient(to right, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 1) 150px, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 0.84) 100%)`;
+            }
+            resGetTopRatedMovie.slice(0, 10).map((item, index) => {
+                getAverageColor(apiConfigImage.originalImage(item.backdrop_path), item, index);
+            });
             setListMovieTopRated(resGetTopRatedMovie.slice(0, 10));
         };
 
@@ -70,11 +90,10 @@ function Slide() {
                 className="h-[calc(100vh-64px)]"
                 modules={[Autoplay, Pagination]}
                 grabCursor={true}
-                loop={true}
                 spaceBetween={0}
                 slidesPerView={1}
                 autoplay={{ delay: 7000 }}
-                lazy={{ loadPrevNext: true }}
+                // lazy={{ loadPrevNext: true }}
                 touchMoveStopPropagation={true}
                 pagination={{
                     clickable: true,
@@ -84,21 +103,52 @@ function Slide() {
                     <SwiperSlide key={index}>
                         {({ isActive }) => (
                             <>
-                                <div className="w-[100vw] h-full relative">
+                                {/* <div>{item.valueColor.R}</div> */}
+                                <div
+                                    className="w-[100vw] h-full relative"
+                                    style={{
+                                        backgroundImage: `url(${apiConfigImage.originalImage(item.backdrop_path)})`,
+                                        backgroundPosition: `center`,
+                                        backgroundSize: `cover`,
+                                    }}
+                                >
                                     <div
+                                        id={`div_bg_image_${item.id}`}
                                         className="h-full bg-center bg-cover brightness-[0.3]"
-                                        style={{
-                                            backgroundImage: `url(${apiConfigImage.originalImage(item.backdrop_path)})`,
-                                        }}
+                                        // style={{
+                                        //     background: `linear-gradient(to right, rgba(73.5, 52.5, 115.5, 1) 150px, rgba(73.5, 52.5, 115.5, 0.84) 100%)`,
+                                        // }}
                                     ></div>
                                     <div className="poster absolute top-[50%] translate-y-[-50%] left-[calc(100vw/10)] flex ">
                                         <img
                                             className="h-[calc(100vh/1.5)] rounded-[15px]"
                                             src={apiConfigImage.w500Image(item.poster_path)}
                                         />
-                                        <div className="ml-16 text-white font-bold text-left ">
-                                            <h1 className="text-8xl m-0 italic">{item.title}</h1>
-                                            <div className="mt-12 max-w-7xl">
+                                        <div className="ml-16 text-white font-bold text-left">
+                                            <h1 className="text-8xl m-0 italic mb-8">{item.title}</h1>
+                                            <div className="flex items-center">
+                                                <CircleRated percent={item.vote_average} size={2} />
+                                                <div className="mt-3 w-[45px] ml-4 mr-7">User Score</div>
+                                                <button className="m-2 w-[46px] rounded-full aspect-square bg-[#032541] flex justify-center items-center">
+                                                    <img
+                                                        className="w-[16px] aspect-square"
+                                                        src={images.addToListIcon}
+                                                    />
+                                                </button>
+                                                <button className="m-2 w-[46px] rounded-full aspect-square bg-[#032541] flex justify-center items-center">
+                                                    <img className="w-[16px] aspect-square" src={images.heartIcon} />
+                                                </button>
+                                                <button className="m-2 w-[46px] rounded-full aspect-square bg-[#032541] flex justify-center items-center">
+                                                    <img
+                                                        className="w-[16px] aspect-square"
+                                                        src={images.addToWatchListIcon}
+                                                    />
+                                                </button>
+                                                <button className="m-2 w-[46px] rounded-full aspect-square bg-[#032541] flex justify-center items-center">
+                                                    <img className="w-[16px] aspect-square" src={images.startIcon} />
+                                                </button>
+                                            </div>
+                                            <div className="mt-20 max-w-7xl">
                                                 <span>Overview</span>
                                                 <p className="font-normal mt-2">{item.overview}</p>
                                             </div>

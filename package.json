@@ -17,6 +17,8 @@
         "babel-plugin-module-resolver": "^4.1.0",
         "classnames": "^2.3.2",
         "customize-cra": "^1.0.0",
+        "fast-average-color": "^9.1.1",
+        "get-average-color": "^0.0.6",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
