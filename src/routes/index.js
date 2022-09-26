@@ -5,6 +5,7 @@ import PeoplePage from '~/pages/PeoplePage';
 import SearchPage from '~/pages/SearchPage';
 import SignUpPage from '~/pages/SignUpPage';
 import TV from '~/pages/TV';
+import WatchMoviePage from '~/pages/WatchMoviePage';
 
 const publicRoute = [
     { path: '/', component: HomePage },
@@ -14,6 +15,7 @@ const publicRoute = [
     { path: '/search', component: SearchPage },
     { path: '/login', component: LoginPage },
     { path: '/signup', component: SignUpPage },
+    { path: '/:idMovie', component: WatchMoviePage },
 ];
 
 const privateRoute = [];

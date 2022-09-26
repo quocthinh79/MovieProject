@@ -1,8 +1,7 @@
 function CircleRated({ percent, size = 1 }) {
-    let initialWidthWrap = 38;
-    let initialWidthSvg = 34;
-    let fontSize = 1.5;
-    let lineHeight = 2;
+    const initialWidthWrap = 38 * size + 'px';
+    const initialWidthSvg = 34 * size + 'px';
+    const fontSize = 1.5 * size + 'rem';
     const dashArray = Math.PI * 100;
     percent = Math.round(percent * 10);
     const dashOffset = Math.round(Math.PI * (100 - percent));
@@ -30,12 +29,10 @@ function CircleRated({ percent, size = 1 }) {
 
     return (
         <div
-            className={`w-[calc(${initialWidthWrap}px*${size})] aspect-square bg-[#081c22] rounded-full flex justify-center items-center`}
+            style={{ width: initialWidthWrap }}
+            className={`aspect-square bg-[#081c22] rounded-full flex justify-center items-center`}
         >
-            <svg
-                viewBox="0 0 100 100"
-                className={`rotate-[-90deg] w-[calc(${initialWidthSvg}px*${size})] aspect-square `}
-            >
+            <svg style={{ width: initialWidthSvg }} viewBox="0 0 100 100" className={`rotate-[-90deg]  aspect-square `}>
                 <circle
                     cx="52.5"
                     cy="52.5"
@@ -60,7 +57,8 @@ function CircleRated({ percent, size = 1 }) {
                 />
             </svg>
             <div
-                className={`font-semibold absolute text-white flex justify-center items-center text-[calc(${fontSize}rem*${size})]`}
+                style={{ fontSize: fontSize }}
+                className={`font-semibold absolute text-white flex justify-center items-center`}
             >
                 {percent ? (
                     <>
