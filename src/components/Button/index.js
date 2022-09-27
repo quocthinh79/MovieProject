@@ -1,13 +1,32 @@
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import images from '~/assets/images';
 import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ children, to, href, onClick, linear = false, disable = false, className, ...passProps }) {
+function Button({
+    children,
+    to,
+    href,
+    onClick,
+    linear = false,
+    disable = false,
+    tippy = false,
+    content = '',
+    placement = '',
+    circle = false,
+    iconBtnCircle = '',
+    primaryShape = true,
+    className,
+    ...passProps
+}) {
     const classes = cx({
         [className]: className,
         linear,
+        circle,
+        primaryShape,
     });
 
     const props = {
@@ -24,6 +43,13 @@ function Button({ children, to, href, onClick, linear = false, disable = false, 
         Component = 'a';
     }
 
+    let ComponentTippy = 'div';
+    if (tippy) {
+        ComponentTippy = Tippy;
+    } else {
+        ComponentTippy = 'div';
+    }
+
     // Disable events
     if (disable) {
         Object.keys(props).forEach((key) => {
@@ -34,13 +60,20 @@ function Button({ children, to, href, onClick, linear = false, disable = false, 
     }
 
     return (
-        <Component
-            className={`p-7 border-2 border-solid rounded-l-[30px] rounded-r-[30px] m-4 ${classes}`}
-            onClick={onClick}
-            {...props}
-        >
-            {children}
-        </Component>
+        <ComponentTippy className="inline-block" content={content} placement={placement}>
+            <Component className={`${classes}`} onClick={onClick} {...props}>
+                {!circle ? (
+                    children
+                ) : (
+                    <img
+                        alt=""
+                        style={{ width: 16, height: 16, display: 'inline-block' }}
+                        // className="w-[16px] aspect-square inline-block"
+                        src={iconBtnCircle}
+                    />
+                )}
+            </Component>
+        </ComponentTippy>
     );
 }
 

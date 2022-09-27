@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoute } from './routes';
 import Header from './components/Header';
 import NotFoundPage from './pages/NotFoundPage';
+import ReactModal from 'react-modal';
 
+ReactModal.setAppElement('#root');
 function App() {
     return (
         <Router>

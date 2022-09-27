@@ -3,3 +3,26 @@
     border: 2px solid;
     color: white;
 }
+
+.circle {
+    margin: 0.5rem;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    background-color: #032541;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.primaryShape {
+    // p-7 border-2 border-solid rounded-l-[30px] rounded-r-[30px] m-4
+    padding: 1.75rem;
+    border: 2px solid;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin: 1rem;
+}
