@@ -10,6 +10,8 @@ import Popup from '~/components/Popup';
 import OverView from '~/components/OverView';
 function Slide() {
     const [listMovieTopRated, setListMovieTopRated] = useState([]);
+    const [valueColorAverage, setValueColorAverage] = useState([]);
+    const listAverageColor = [];
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -23,18 +25,21 @@ function Slide() {
                 'day',
             );
 
-            async function getAverageColor(imgUrl, item, index) {
-                const fac = new FastAverageColor();
-                const img = document.createElement('img');
-                img.src = imgUrl;
-                img.crossOrigin = 'Anonymous';
-                const color = await fac.getColorAsync(img).then((col) => {
-                    return col;
-                });
-                const valueColor = { R: color.value[0], G: color.value[1], B: color.value[2] };
-                const divBg = document.querySelector(`#div_bg_image_${item.id}`);
-                divBg.style.background = `linear-gradient(to right, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 1) 150px, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 0.84) 100%)`;
-            }
+            // async function getAverageColor(imgUrl, item, index) {
+            //     const fac = new FastAverageColor();
+            //     const img = document.createElement('img');
+            //     img.src = imgUrl;
+            //     img.crossOrigin = 'Anonymous';
+            //     const color = await fac.getColorAsync(img).then((col) => {
+            //         return col;
+            //     });
+            //     const valueColor = { R: color.value[0], G: color.value[1], B: color.value[2] };
+            //     console.log({ id: item.id, ...valueColor });
+            //     listAverageColor.push({ id: item.id, ...valueColor });
+            //     setValueColorAverage(listAverageColor);
+            //     const divBg = document.querySelector(`#div_bg_image_${item.id}`);
+            //     divBg.style.background = `linear-gradient(to right, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 1) 150px, rgba(${valueColor.R}, ${valueColor.G}, ${valueColor.B}, 0.84) 100%)`;
+            // }
             resGetTopRatedMovie
                 .sort((a, b) => {
                     if (a.vote_average > b.vote_average) {
@@ -47,13 +52,15 @@ function Slide() {
                 })
                 .filter((value) => Math.round(value.vote_average * 10) >= 70)
                 .map((item, index) => {
-                    getAverageColor(apiConfigImage.originalImage(item.backdrop_path), item, index);
+                    // getAverageColor(apiConfigImage.originalImage(item.backdrop_path), item, index);
                 });
             setListMovieTopRated(resGetTopRatedMovie.filter((value) => Math.round(value.vote_average * 10) >= 70));
         };
 
         fetchApi();
     }, []);
+
+    console.log('Test', valueColorAverage[5]);
 
     const [heroSwiper, setSwiperRef] = useState(null);
     const [urlTrailer, setUrlTrailer] = useState([]);

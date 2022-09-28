@@ -2,6 +2,7 @@ import images from '~/assets/images';
 import { apiConfigImage } from '~/untils/request';
 import Button from '../Button';
 import CircleRated from '../Header/components/CircleRated';
+import OverlayBackground from '../OverlayBackground';
 
 function OverView({ linkBackGround, idMovie, linkPoster, voteAverage, overview, titleMovie, popup, width, height }) {
     return (
@@ -15,7 +16,7 @@ function OverView({ linkBackGround, idMovie, linkPoster, voteAverage, overview, 
                 backgroundSize: `cover`,
             }}
         >
-            <div id={`div_bg_image_${idMovie}`} className="h-full bg-center bg-cover brightness-[0.3]"></div>
+            <OverlayBackground idMovie={idMovie} imgUrl={apiConfigImage.originalImage(linkBackGround)} />
             <div className="poster absolute top-[50%] translate-y-[-50%] left-[calc(100vw/10)] flex ">
                 <img
                     alt="Poster"
@@ -32,7 +33,7 @@ function OverView({ linkBackGround, idMovie, linkPoster, voteAverage, overview, 
                             primaryShape={false}
                             circle={true}
                             tippy={true}
-                            iconBtnCircle={images.addToWatchListIcon}
+                            iconBtnCircle={images.addToListIcon}
                             content="Add to list"
                             placement="bottom"
                         ></Button>
