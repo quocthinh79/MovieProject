@@ -7,6 +7,7 @@ const request = axios.create({
 export const apiConfigImage = {
     originalImage: (imgPath) => `https://image.tmdb.org/t/p/original${imgPath}`,
     w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500${imgPath}`,
+    w220H330Image: (imgPath) => `https://www.themoviedb.org/t/p/w220_and_h330_face${imgPath}`,
 };
 export const apiConfigVideo = {
     youtubeEmbed: (idVideo) => `https://www.youtube.com/embed/${idVideo}`,
@@ -44,6 +45,10 @@ export const getTopRatedMovie = async (options, urlApi = '3/movie/top_rated') =>
 
 export const getTrailerOfMovie = async (options, idMovie, urlApi = '3/movie') => {
     const res = await request.get(`${urlApi}/${idMovie}/videos`, options);
+    return res.data.results;
+};
+export const getPopularMovie = async (options, urlApi = '3/movie/popular') => {
+    const res = await request.get(`${urlApi}`, options);
     return res.data.results;
 };
 

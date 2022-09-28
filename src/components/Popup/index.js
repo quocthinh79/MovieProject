@@ -2,10 +2,9 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import { apiConfigVideo, getTrailerOfMovie } from '~/untils/request';
 import Button from '../Button';
 
-function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getTrailer, titleVideo, width, height }) {
+function Popup({ children, heroSlide, textInButton, idVideo, getTrailer, width, height }) {
     const customStyles = {
         content: {
             background: '#000',
@@ -37,6 +36,7 @@ function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getT
         heroSlide.autoplay.start();
         setIsOpen(false);
     }
+
     return (
         <>
             <Button onClick={openModal}>{textInButton}</Button>
@@ -44,11 +44,7 @@ function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getT
                 <button onClick={closeModal}>
                     <FontAwesomeIcon className="absolute text-white top-0 right-0 px-2" size="2x" icon={faClose} />
                 </button>
-                {!urlVideo ? (
-                    children
-                ) : (
-                    <iframe title={`${titleVideo}`} src={urlVideo} width="100%" height="90%"></iframe>
-                )}
+                {children}
             </ReactModal>
         </>
     );

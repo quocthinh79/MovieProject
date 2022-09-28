@@ -1,18 +1,14 @@
-import { Fragment, useContext, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateShowItemSearchResult } from '~/redux/showItemSearchResultSlice';
-import { getSearchKeywords, getTrending } from '~/untils/request';
 import HeaderSearch from '../HeaderSearch';
-import SearchInput, { InputContext } from '../SearchInput';
+import SearchInput from '../SearchInput';
 import SearchResultItem from '../SearchResultItem';
 
 function Search() {
     const resultSearchTrending = useSelector((state) => state.trending);
 
-    // const stateInputSearch = useSelector((state) => state);
-
     const wrapperRef = useRef(null);
-    // const [showItemSearchResult, setShowItemSearchResult] = useState(true);
     const stateInRedux = useSelector((state) => state);
     const showItemSearchResultDispatch = useDispatch();
     useEffect(() => {

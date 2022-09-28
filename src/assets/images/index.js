@@ -10,6 +10,7 @@ const images = {
     heartIcon: require('~/assets/images/heartIcon.svg').default,
     addToWatchListIcon: require('~/assets/images/addToWatchListIcon.svg').default,
     startIcon: require('~/assets/images/startIcon.svg').default,
+    optionCircleIcon: require('~/assets/images/optionCircleIcon.svg').default,
 };
 
 export default images;
