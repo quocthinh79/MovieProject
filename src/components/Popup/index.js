@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 import { apiConfigVideo, getTrailerOfMovie } from '~/untils/request';
 import Button from '../Button';
 
-function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getTrailer, titleVideo }) {
+function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getTrailer, titleVideo, width, height }) {
     const customStyles = {
         content: {
             background: '#000',
@@ -16,8 +16,8 @@ function Popup({ children, heroSlide, urlVideo = '', textInButton, idVideo, getT
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: 'calc(100vw/1.1)',
-            height: 'calc(100vh/1.1)',
+            width: width,
+            height: height,
             position: 'relative',
         },
         overlay: {
