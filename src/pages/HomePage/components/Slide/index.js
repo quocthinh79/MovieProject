@@ -68,6 +68,7 @@ function Slide() {
                 pagination={{
                     clickable: true,
                 }}
+                loop={true}
             >
                 {listMovieTopRated.map((item, index) => (
                     <SwiperSlide key={index}>

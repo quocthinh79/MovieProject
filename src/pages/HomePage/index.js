@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getPopularMovie } from '~/untils/request';
+import { getPopularMovie, getTrending } from '~/untils/request';
 import GeneralBigItem from './components/GeneralBigItem';
 import Slide from './components/Slide';
 
 function HomePage() {
     const [popularMovie, setPopularMovie] = useState([]);
+    const [treding, setTrending] = useState([]);
     useEffect(() => {
         const fetchApi = async () => {
             const resPopularMovie = await getPopularMovie({
@@ -13,6 +14,16 @@ function HomePage() {
                 },
             });
             setPopularMovie(resPopularMovie);
+            const resTrending = await getTrending(
+                {
+                    params: {
+                        api_key: process.env.REACT_APP_API_KEY,
+                    },
+                },
+                'movie',
+                'day',
+            );
+            setTrending(resTrending);
         };
         fetchApi();
     }, []);
@@ -25,6 +36,22 @@ function HomePage() {
                 title={`What's Popular`}
                 headingOne={`Movie`}
                 headingTwo={`TV`}
+                typeMedia="movie"
+            />
+            <GeneralBigItem
+                slidesPerView={4}
+                shortVideoCard={true}
+                inputList={treding}
+                title={`Trailer`}
+                headingOne={`Today`}
+                headingTwo={`This Week`}
+                typeMedia="movie"
+            />
+            <GeneralBigItem
+                inputList={treding}
+                title={`Trending`}
+                headingOne={`Today`}
+                headingTwo={`This Week`}
                 typeMedia="movie"
             />
         </>

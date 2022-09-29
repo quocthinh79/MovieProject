@@ -2,9 +2,21 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
+import { apiConfigImage } from '~/untils/request';
 import Button from '../Button';
+import ShortVideoCard from '../ShortVideoCard';
 
-function Popup({ children, heroSlide, textInButton, idVideo, getTrailer, width, height }) {
+function Popup({
+    children,
+    heroSlide,
+    textInButton,
+    idVideo,
+    getTrailer,
+    width,
+    height,
+    shortVideoCard = false,
+    urlBackGround,
+}) {
     const customStyles = {
         content: {
             background: '#000',
@@ -39,7 +51,13 @@ function Popup({ children, heroSlide, textInButton, idVideo, getTrailer, width, 
 
     return (
         <>
-            <Button onClick={openModal}>{textInButton}</Button>
+            {!shortVideoCard ? (
+                <Button onClick={openModal}>{textInButton}</Button>
+            ) : (
+                <div onClick={openModal}>
+                    <ShortVideoCard idVideo={idVideo} urlBackGround={apiConfigImage.w335H299Image(urlBackGround)} />
+                </div>
+            )}
             <ReactModal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
                 <button onClick={closeModal}>
                     <FontAwesomeIcon className="absolute text-white top-0 right-0 px-2" size="2x" icon={faClose} />

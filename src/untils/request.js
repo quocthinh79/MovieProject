@@ -8,6 +8,7 @@ export const apiConfigImage = {
     originalImage: (imgPath) => `https://image.tmdb.org/t/p/original${imgPath}`,
     w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500${imgPath}`,
     w220H330Image: (imgPath) => `https://www.themoviedb.org/t/p/w220_and_h330_face${imgPath}`,
+    w335H299Image: (imgPath) => `https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${imgPath}`,
 };
 export const apiConfigVideo = {
     youtubeEmbed: (idVideo) => `https://www.youtube.com/embed/${idVideo}`,
