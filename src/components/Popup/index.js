@@ -1,7 +1,10 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
+import { useDispatch } from 'react-redux';
+import { updateIdBackroundOnHover } from '~/redux/idBackgroundOnHoverSlice';
+import { updateUrlBackroundOnHover } from '~/redux/urlBackgroundOnHoverSlice';
 import { apiConfigImage } from '~/untils/request';
 import Button from '../Button';
 import ShortVideoCard from '../ShortVideoCard';
@@ -16,6 +19,7 @@ function Popup({
     height,
     shortVideoCard = false,
     urlBackGround,
+    textColor = '#000',
 }) {
     const customStyles = {
         content: {
@@ -48,14 +52,27 @@ function Popup({
         heroSlide.autoplay.start();
         setIsOpen(false);
     }
+    const dispatch = useDispatch();
+    const handleHoverTrailerCard = () => {
+        dispatch(updateUrlBackroundOnHover(apiConfigImage.originalImage(urlBackGround)));
+        dispatch(updateIdBackroundOnHover(idVideo));
+    };
+
+    useEffect(() => {
+        dispatch(updateUrlBackroundOnHover(apiConfigImage.originalImage(urlBackGround)));
+    }, []);
 
     return (
         <>
             {!shortVideoCard ? (
                 <Button onClick={openModal}>{textInButton}</Button>
             ) : (
-                <div onClick={openModal}>
-                    <ShortVideoCard idVideo={idVideo} urlBackGround={apiConfigImage.w335H299Image(urlBackGround)} />
+                <div onClick={openModal} onMouseEnter={handleHoverTrailerCard}>
+                    <ShortVideoCard
+                        textColor={textColor}
+                        idVideo={idVideo}
+                        urlBackGround={apiConfigImage.w335H299Image(urlBackGround)}
+                    />
                 </div>
             )}
             <ReactModal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>

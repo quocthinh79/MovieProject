@@ -6,6 +6,7 @@ import { publicRoute } from './routes';
 import Header from './components/Header';
 import NotFoundPage from './pages/NotFoundPage';
 import ReactModal from 'react-modal';
+import { createContext } from 'react';
 
 ReactModal.setAppElement('#root');
 function App() {

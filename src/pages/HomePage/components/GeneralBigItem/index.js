@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import MovieCard from '~/components/MovieCard';
+import OverlayBackground from '~/components/OverlayBackground';
 import Popup from '~/components/Popup';
 import { apiConfigVideo, getTrailerOfMovie } from '~/untils/request';
 
 function GeneralBigItem({
+    textColor = '#000',
     inputList,
     title,
     headingOne,
@@ -13,6 +16,9 @@ function GeneralBigItem({
     typeMedia,
     movieCard = false,
     shortVideoCard = false,
+    borderInTitile = '#000',
+    colorTitleOne = `linear-gradient(to right, #c0fecf 0%, #1ed5a9 100%)`,
+    backgroundTitleOne = `#032541`,
     slidesPerView = 6,
     slidesPerGroup = 3,
 }) {
@@ -48,17 +54,44 @@ function GeneralBigItem({
         setUrlTrailer(apiConfigVideo.youtubeEmbed(res[0].key));
     };
 
+    const urlBackgroundOnHover = useSelector((state) => state.urlBackgroundOnHover);
+    const idBackgroundOnHover = useSelector((state) => state.idBackgroundOnHover);
+
     return (
-        <div className="w-[70vw] relative m-auto">
-            <div className="my-12 relative">
+        <div
+            className="w-[70vw] h-auto relative m-auto block"
+            style={{
+                backgroundImage: `url(${shortVideoCard ? urlBackgroundOnHover : ''})`,
+                backgroundPosition: `center`,
+                backgroundSize: `cover`,
+                backgroundRepeat: `no-repeat`,
+            }}
+        >
+            {shortVideoCard && (
+                <OverlayBackground light={true} imgUrl={urlBackgroundOnHover} idMovie={idBackgroundOnHover} />
+            )}
+            <div className="my-12 relative py-12">
                 <div className="flex items-center font-bold mx-12 mb-7">
-                    <h2 className="mr-5 text-[24px]">{title}</h2>
-                    <div className="w-auto h-[30px] flex items-center rounded-[30px] border-[1px] border-[#000]">
-                        <div className="py-[3px] px-[20px] rounded-[30px] bg-[#032541]">
+                    <h2
+                        className="mr-5 text-[24px]"
+                        style={{
+                            color: `${textColor}`,
+                        }}
+                    >
+                        {title}
+                    </h2>
+                    <div
+                        className="w-auto h-[30px] flex items-center rounded-[30px] border-[1px]"
+                        style={{ borderColor: `${borderInTitile}` }}
+                    >
+                        <div
+                            className="py-[3px] px-[20px] rounded-[30px]"
+                            style={{ background: `${backgroundTitleOne}` }}
+                        >
                             <a
                                 href=""
                                 style={{
-                                    background: `linear-gradient(to right, #c0fecf 0%, #1ed5a9 100%)`,
+                                    background: `${colorTitleOne}`,
                                     WebkitBackgroundClip: `text`,
                                     WebkitTextFillColor: `transparent`,
                                 }}
@@ -67,7 +100,9 @@ function GeneralBigItem({
                             </a>
                         </div>
                         <div className="py-[3px] px-[20px] rounded-[30px] ">
-                            <a href="">{headingTwo}</a>
+                            <a style={{ color: `${textColor}` }} href="">
+                                {headingTwo}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -103,6 +138,7 @@ function GeneralBigItem({
                                         getTrailer={getVideoTrailer}
                                         heroSlide={heroSwiper}
                                         urlBackGround={item.backdrop_path}
+                                        textColor={textColor}
                                     >
                                         <iframe
                                             title={`${item.name}`}

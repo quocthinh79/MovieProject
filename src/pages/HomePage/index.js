@@ -46,6 +46,10 @@ function HomePage() {
                 headingOne={`Today`}
                 headingTwo={`This Week`}
                 typeMedia="movie"
+                textColor="#fff"
+                colorTitleOne="#000"
+                borderInTitile="#1ed5a9"
+                backgroundTitleOne="#1ed5a9"
             />
             <GeneralBigItem
                 inputList={treding}
