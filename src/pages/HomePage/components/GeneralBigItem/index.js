@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import MovieCard from '~/components/MovieCard';
-import OverlayBackground from '~/components/OverlayBackground';
 import Popup from '~/components/Popup';
 import { apiConfigVideo, getTrailerOfMovie } from '~/untils/request';
 
@@ -55,7 +54,6 @@ function GeneralBigItem({
     };
 
     const urlBackgroundOnHover = useSelector((state) => state.urlBackgroundOnHover);
-    const idBackgroundOnHover = useSelector((state) => state.idBackgroundOnHover);
 
     return (
         <div
@@ -68,7 +66,12 @@ function GeneralBigItem({
             }}
         >
             {shortVideoCard && (
-                <OverlayBackground light={true} imgUrl={urlBackgroundOnHover} idMovie={idBackgroundOnHover} />
+                <div
+                    className="absolute top-0 left-0 right-0 bottom-0"
+                    style={{
+                        background: `linear-gradient(to right, rgba(3, 37, 65, 0.75) 0%, rgba(3, 37, 65, 0.75) 100%)`,
+                    }}
+                ></div>
             )}
             <div className="my-12 relative py-12">
                 <div className="flex items-center font-bold mx-12 mb-7">

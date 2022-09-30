@@ -67,7 +67,7 @@ function Popup({
             {!shortVideoCard ? (
                 <Button onClick={openModal}>{textInButton}</Button>
             ) : (
-                <div onClick={openModal} onMouseEnter={handleHoverTrailerCard}>
+                <div onClick={openModal} onMouseEnter={handleHoverTrailerCard} className="h-auto pt-5">
                     <ShortVideoCard
                         textColor={textColor}
                         idVideo={idVideo}
