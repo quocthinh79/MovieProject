@@ -8,10 +8,12 @@ import AddToWatchListIcon from '~/assets/images/AddToWatchListIcon';
 import HeaderIcon from '~/assets/images/HeaderIcon';
 import StartIcon from '~/assets/images/StartIcon';
 
-function OptionCircle() {
+function OptionCircle({ handleClickOption = () => {} }) {
     return (
         <div
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
             className="option absolute top-2 right-2 w-[1.5em] h-[1.5em] text-[1em] cursor-pointer z-10"
         >
             <Tippy
@@ -19,11 +21,13 @@ function OptionCircle() {
                 delay={[0, 400]}
                 interactive="true"
                 placement="bottom-end"
+                onShow={() => handleClickOption(true)}
                 onMount={(instance) => {
-                    instance.setProps({ trigger: 'mouseenter focus' });
+                    instance.setProps({ trigger: 'mouseenter' });
                 }}
                 onHide={(instance) => {
                     instance.setProps({ trigger: 'click' });
+                    handleClickOption(false);
                 }}
                 render={(attrs) => (
                     <PopperWrapper>

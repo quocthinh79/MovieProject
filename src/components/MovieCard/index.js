@@ -5,8 +5,8 @@ import OptionCircle from '../OptionCircle';
 
 function MovieCard({ urlBackGround, titleMovie, releaseDate, voteAverage, routerLinkToPage }) {
     const [blur, setBlur] = useState(false);
-    const handleClickOption = () => {
-        setBlur(true);
+    const handleClickOption = (boolean) => {
+        setBlur(boolean);
     };
 
     const wrapperRef = useRef(null);
