@@ -66,4 +66,9 @@ export const getCast = async (options, idMovie, urlApi = '3/movie') => {
     return res.data.cast;
 };
 
+export const getRecommendations = async (options, idMovie, urlApi = '3/movie') => {
+    const res = await request.get(`${urlApi}/${idMovie}/recommendations`, options);
+    return res.data.results;
+};
+
 export default request;

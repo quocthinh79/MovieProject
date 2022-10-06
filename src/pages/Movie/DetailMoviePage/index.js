@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import DescriptionItem from '~/components/DescriptionItem';
 import OverView from '~/components/OverView';
 import Popup from '~/components/Popup';
 import GeneralBigItem from '~/pages/HomePage/components/GeneralBigItem';
-import { apiConfigImage, apiConfigVideo, getCast, getDetailMovie, getTrailerOfMovie } from '~/untils/request';
+import {
+    apiConfigImage,
+    apiConfigVideo,
+    getCast,
+    getDetailMovie,
+    getRecommendations,
+    getTrailerOfMovie,
+} from '~/untils/request';
 
 function DetailMoviePage() {
     const params = useParams();
@@ -11,6 +19,7 @@ function DetailMoviePage() {
     const [urlTrailer, setUrlTrailer] = useState([]);
     const [detailMovie, setDetailMovie] = useState(null);
     const [cast, setCast] = useState(null);
+    const [recommendations, setRecommendations] = useState(null);
 
     useEffect(() => {
         const fetchApi = async (idMovie) => {
@@ -32,7 +41,17 @@ function DetailMoviePage() {
                 },
                 idMovie,
             );
-            setCast(resCast);
+            setCast(resCast.slice(0, 10));
+
+            const resRecommendations = await getRecommendations(
+                {
+                    params: {
+                        api_key: process.env.REACT_APP_API_KEY,
+                    },
+                },
+                idMovie,
+            );
+            setRecommendations(resRecommendations);
         };
         fetchApi(idMovie);
     }, [idMovie]);
@@ -89,12 +108,21 @@ function DetailMoviePage() {
                     />
                 )}
             </div>
-            <div className="detail-movie w-[70vw] h-auto flex justify-center items-center">
-                <div className="detail-left flex-[2]">
+            <div className="detail-movie w-auto h-auto flex justify-center">
+                <div className="detail-left w-[calc(100vw/1.5)]">
                     {cast && <GeneralBigItem inputList={cast} title={`Top Billed Cast`} />}
+                    {recommendations && (
+                        <GeneralBigItem inputList={recommendations} title={`Recommendations`} typeMedia="movie" />
+                    )}
                 </div>
-                <div className="detail-right flex-[1]">
-                </div>
+                {detailMovie && (
+                    <div className="detail-right w-[calc(100vw/7)] h-24 flex flex-col mt-[60px]">
+                        <DescriptionItem title={`Status`} content={detailMovie.status} />
+                        <DescriptionItem title={`Original Language`} content={detailMovie.original_language} />
+                        <DescriptionItem title={`Budget`} content={detailMovie.budget} />
+                        <DescriptionItem title={`Revenue`} content={detailMovie.revenue} />
+                    </div>
+                )}
             </div>
         </div>
     );

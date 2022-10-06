@@ -44,7 +44,7 @@ function OverView({
                 <div className="ml-16 text-white font-bold text-left">
                     <h1 className="text-8xl m-0 italic mb-3">
                         {titleMovie}&nbsp;
-                        {release_date && <span className="opacity-80 font-normal not-italic">({release_date})</span>}
+                        {release_date && <span className="opacity-80 font-normal not-italic text-5xl">({release_date})</span>}
                     </h1>
                     <div className="mb-2 font-normal flex items-center">
                         {status && (

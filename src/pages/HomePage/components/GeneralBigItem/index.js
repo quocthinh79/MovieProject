@@ -39,7 +39,7 @@ function GeneralBigItem({
 
     return (
         <div
-            className="w-[70vw] h-auto relative m-auto block"
+            className="w-full h-auto relative m-auto"
             style={{
                 backgroundImage: `url(${popup ? urlBackgroundOnHover : ''})`,
                 backgroundPosition: `center`,

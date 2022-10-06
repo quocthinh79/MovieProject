@@ -1,11 +1,13 @@
 import HomePage from '~/pages/HomePage';
-import LoginPage from '~/pages/LoginPage';
-import Movie from '~/pages/Movie';
-import PeoplePage from '~/pages/PeoplePage';
-import SearchPage from '~/pages/SearchPage';
-import SignUpPage from '~/pages/SignUpPage';
-import TV from '~/pages/TV';
-import WatchMoviePage from '~/pages/WatchMoviePage';
+import React from 'react';
+
+const LoginPage = React.lazy(() => import('~/pages/LoginPage'));
+const Movie = React.lazy(() => import('~/pages/Movie'));
+const PeoplePage = React.lazy(() => import('~/pages/PeoplePage'));
+const SearchPage = React.lazy(() => import('~/pages/SearchPage'));
+const SignUpPage = React.lazy(() => import('~/pages/SignUpPage'));
+const TV = React.lazy(() => import('~/pages/TV'));
+const WatchMoviePage = React.lazy(() => import('~/pages/WatchMoviePage'));
 
 const publicRoute = [
     { path: '/', component: HomePage },

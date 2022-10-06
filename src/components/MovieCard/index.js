@@ -50,7 +50,7 @@ function MovieCard({
                     />
                 </a>
                 {urlBackGroundMovie && <OptionCircle handleClickOption={handleClickOption} />}
-                {voteAverage && (
+                {urlBackGroundMovie && (
                     <div className="absolute bottom-[calc(-38px/2)] left-4">
                         <CircleRated percent={voteAverage} />
                     </div>
