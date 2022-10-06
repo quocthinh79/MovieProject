@@ -1,7 +1,7 @@
 import { FastAverageColor } from 'fast-average-color';
 import { useEffect, useState } from 'react';
 
-function OverlayBackground({ idMovie, imgUrl, light = false }) {
+function OverlayBackground({ idMovie, imgUrl }) {
     const [averageColor, setAverageColor] = useState({});
     useEffect(() => {
         async function getAverageColor(imgUrl) {
@@ -16,11 +16,15 @@ function OverlayBackground({ idMovie, imgUrl, light = false }) {
             setAverageColor({ id: idMovie, ...valueColor });
         }
         getAverageColor(imgUrl);
-    }, [idMovie, imgUrl]);
+    }, [imgUrl]);
     return (
         <div
             id={`div_bg_image_${idMovie}`}
             style={{
+                backgroundImage: `url(${imgUrl})`,
+                backgroundPosition: `center`,
+                backgroundRepeat: `no-repeat`,
+                backgroundSize: `cover`,
                 background: `linear-gradient(to right, rgba(${averageColor.R}, ${averageColor.G}, ${averageColor.B}, 1) 150px, rgba(${averageColor.R}, ${averageColor.G}, ${averageColor.B}, 0.84) 100%)`,
             }}
             className="absolute top-0 bottom-0 left-0 right-0 bg-center bg-cover brightness-[0.3]"

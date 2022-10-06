@@ -44,12 +44,12 @@ function Popup({
 
     const openModal = () => {
         getTrailer(idVideo);
-        heroSlide.autoplay.stop();
+        if (heroSlide) heroSlide.autoplay.stop();
         setIsOpen(true);
     };
 
     function closeModal() {
-        heroSlide.autoplay.start();
+        if (heroSlide) heroSlide.autoplay.start();
         setIsOpen(false);
     }
     const dispatch = useDispatch();

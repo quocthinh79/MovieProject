@@ -9,6 +9,8 @@ export const apiConfigImage = {
     w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500${imgPath}`,
     w220H330Image: (imgPath) => `https://www.themoviedb.org/t/p/w220_and_h330_face${imgPath}`,
     w335H299Image: (imgPath) => `https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${imgPath}`,
+    w300H450Image: (imgPath) => `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${imgPath}`,
+    w1920H800Image: (imgPath) => `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${imgPath}`,
 };
 export const apiConfigVideo = {
     youtubeEmbed: (idVideo) => `https://www.youtube.com/embed/${idVideo}`,
@@ -51,6 +53,11 @@ export const getTrailerOfMovie = async (options, idMovie, urlApi = '3/movie') =>
 export const getPopularMovie = async (options, urlApi = '3/movie/popular') => {
     const res = await request.get(`${urlApi}`, options);
     return res.data.results;
+};
+
+export const getDetailMovie = async (options, idMovie, urlApi = '3/movie') => {
+    const res = await request.get(`${urlApi}/${idMovie}`, options);
+    return res.data;
 };
 
 export default request;

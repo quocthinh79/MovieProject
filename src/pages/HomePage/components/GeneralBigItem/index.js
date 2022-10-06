@@ -13,8 +13,7 @@ function GeneralBigItem({
     headingOne,
     headingTwo,
     typeMedia,
-    movieCard = false,
-    shortVideoCard = false,
+    videoCard = false,
     borderInTitile = '#000',
     colorTitleOne = `linear-gradient(to right, #c0fecf 0%, #1ed5a9 100%)`,
     backgroundTitleOne = `#032541`,
@@ -22,23 +21,6 @@ function GeneralBigItem({
     slidesPerGroup = 3,
 }) {
     const [heroSwiper, setSwiperRef] = useState(null);
-    const [router, setRouter] = useState('');
-    const [movieCardType, setMovieCardType] = useState(true);
-    useEffect(() => {
-        if (typeMedia === 'movie') {
-            setRouter('movie');
-        } else if (typeMedia === 'tv') {
-            setRouter('tv');
-        } else {
-            setRouter('person');
-        }
-        if (movieCard) {
-            setMovieCardType(true);
-        }
-        if (shortVideoCard) {
-            setMovieCardType(false);
-        }
-    }, [title]);
 
     const [urlTrailer, setUrlTrailer] = useState([]);
     const getVideoTrailer = async (idVideo) => {
@@ -59,13 +41,13 @@ function GeneralBigItem({
         <div
             className="w-[70vw] h-auto relative m-auto block"
             style={{
-                backgroundImage: `url(${shortVideoCard ? urlBackgroundOnHover : ''})`,
+                backgroundImage: `url(${videoCard ? urlBackgroundOnHover : ''})`,
                 backgroundPosition: `center`,
                 backgroundSize: `cover`,
                 backgroundRepeat: `no-repeat`,
             }}
         >
-            {shortVideoCard && (
+            {videoCard && (
                 <div
                     className="absolute top-0 left-0 right-0 bottom-0"
                     style={{
@@ -124,9 +106,9 @@ function GeneralBigItem({
                     {inputList.map((item, index) => (
                         <SwiperSlide key={index}>
                             {({ isActive }) =>
-                                movieCardType ? (
+                                !videoCard ? (
                                     <MovieCard
-                                        routerLinkToPage={`${router}/${item.id}`}
+                                        routerLinkToPage={`${typeMedia}/${item.id}`}
                                         urlBackGround={item.poster_path}
                                         titleMovie={item.title}
                                         releaseDate={item.release_date}

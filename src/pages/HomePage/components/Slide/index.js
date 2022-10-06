@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { apiConfigVideo, getTrailerOfMovie, getTrending } from '~/untils/request';
+import { apiConfigImage, apiConfigVideo, getTrailerOfMovie, getTrending } from '~/untils/request';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
@@ -76,9 +76,9 @@ function Slide() {
                             <OverView
                                 width={`100vw`}
                                 height={`100%`}
-                                linkBackGround={item.backdrop_path}
+                                linkBackGround={apiConfigImage.originalImage(item.backdrop_path)}
                                 idMovie={item.id}
-                                linkPoster={item.poster_path}
+                                linkPoster={apiConfigImage.w500Image(item.poster_path)}
                                 voteAverage={item.vote_average}
                                 overview={item.overview}
                                 titleMovie={item.title}
