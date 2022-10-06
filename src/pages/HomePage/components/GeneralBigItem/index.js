@@ -13,7 +13,7 @@ function GeneralBigItem({
     headingOne,
     headingTwo,
     typeMedia,
-    videoCard = false,
+    popup = false,
     borderInTitile = '#000',
     colorTitleOne = `linear-gradient(to right, #c0fecf 0%, #1ed5a9 100%)`,
     backgroundTitleOne = `#032541`,
@@ -41,13 +41,13 @@ function GeneralBigItem({
         <div
             className="w-[70vw] h-auto relative m-auto block"
             style={{
-                backgroundImage: `url(${videoCard ? urlBackgroundOnHover : ''})`,
+                backgroundImage: `url(${popup ? urlBackgroundOnHover : ''})`,
                 backgroundPosition: `center`,
                 backgroundSize: `cover`,
                 backgroundRepeat: `no-repeat`,
             }}
         >
-            {videoCard && (
+            {popup && (
                 <div
                     className="absolute top-0 left-0 right-0 bottom-0"
                     style={{
@@ -65,31 +65,37 @@ function GeneralBigItem({
                     >
                         {title}
                     </h2>
-                    <div
-                        className="w-auto h-[30px] flex items-center rounded-[30px] border-[1px]"
-                        style={{ borderColor: `${borderInTitile}` }}
-                    >
+                    {headingOne && headingTwo && (
                         <div
-                            className="py-[3px] px-[20px] rounded-[30px]"
-                            style={{ background: `${backgroundTitleOne}` }}
+                            className="w-auto h-[30px] flex items-center rounded-[30px] border-[1px]"
+                            style={{ borderColor: `${borderInTitile}` }}
                         >
-                            <a
-                                href=""
-                                style={{
-                                    background: `${colorTitleOne}`,
-                                    WebkitBackgroundClip: `text`,
-                                    WebkitTextFillColor: `transparent`,
-                                }}
-                            >
-                                {headingOne}
-                            </a>
+                            {headingOne && (
+                                <div
+                                    className="py-[3px] px-[20px] rounded-[30px]"
+                                    style={{ background: `${backgroundTitleOne}` }}
+                                >
+                                    <a
+                                        href=""
+                                        style={{
+                                            background: `${colorTitleOne}`,
+                                            WebkitBackgroundClip: `text`,
+                                            WebkitTextFillColor: `transparent`,
+                                        }}
+                                    >
+                                        {headingOne}
+                                    </a>
+                                </div>
+                            )}
+                            {headingTwo && (
+                                <div className="py-[3px] px-[20px] rounded-[30px] ">
+                                    <a style={{ color: `${textColor}` }} href="">
+                                        {headingTwo}
+                                    </a>
+                                </div>
+                            )}
                         </div>
-                        <div className="py-[3px] px-[20px] rounded-[30px] ">
-                            <a style={{ color: `${textColor}` }} href="">
-                                {headingTwo}
-                            </a>
-                        </div>
-                    </div>
+                    )}
                 </div>
                 <Swiper
                     slidesPerView={slidesPerView}
@@ -106,13 +112,18 @@ function GeneralBigItem({
                     {inputList.map((item, index) => (
                         <SwiperSlide key={index}>
                             {({ isActive }) =>
-                                !videoCard ? (
+                                !popup ? (
                                     <MovieCard
+                                        border={true}
                                         routerLinkToPage={`${typeMedia}/${item.id}`}
-                                        urlBackGround={item.poster_path}
+                                        urlBackGroundMovie={item.poster_path}
+                                        urlAvatarCast={item.profile_path}
                                         titleMovie={item.title}
                                         releaseDate={item.release_date}
                                         voteAverage={item.vote_average}
+                                        nameCast={item.character}
+                                        nameCharacter={item.original_name}
+                                        borderBool={item.profile_path ? true : false}
                                     />
                                 ) : (
                                     <Popup

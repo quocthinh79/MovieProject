@@ -40,7 +40,7 @@ function HomePage() {
             />
             <GeneralBigItem
                 slidesPerView={4}
-                videoCard={true}
+                popup={true}
                 inputList={treding}
                 title={`Trailer`}
                 headingOne={`Today`}

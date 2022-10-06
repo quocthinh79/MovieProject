@@ -74,6 +74,7 @@ function Slide() {
                     <SwiperSlide key={index}>
                         {({ isActive }) => (
                             <OverView
+                                key={index}
                                 width={`100vw`}
                                 height={`100%`}
                                 linkBackGround={apiConfigImage.originalImage(item.backdrop_path)}

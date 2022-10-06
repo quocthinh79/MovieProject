@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import OverView from '~/components/OverView';
 import Popup from '~/components/Popup';
-import { apiConfigImage, apiConfigVideo, getDetailMovie, getTrailerOfMovie } from '~/untils/request';
+import GeneralBigItem from '~/pages/HomePage/components/GeneralBigItem';
+import { apiConfigImage, apiConfigVideo, getCast, getDetailMovie, getTrailerOfMovie } from '~/untils/request';
 
 function DetailMoviePage() {
     const params = useParams();
     const idMovie = params.id;
     const [urlTrailer, setUrlTrailer] = useState([]);
     const [detailMovie, setDetailMovie] = useState(null);
+    const [cast, setCast] = useState(null);
 
     useEffect(() => {
         const fetchApi = async (idMovie) => {
@@ -21,6 +23,16 @@ function DetailMoviePage() {
                 idMovie,
             );
             setDetailMovie(res);
+
+            const resCast = await getCast(
+                {
+                    params: {
+                        api_key: process.env.REACT_APP_API_KEY,
+                    },
+                },
+                idMovie,
+            );
+            setCast(resCast);
         };
         fetchApi(idMovie);
     }, [idMovie]);
@@ -38,10 +50,11 @@ function DetailMoviePage() {
     };
 
     return (
-        <div className="wrapper-detail">
+        <div className="wrapper-detail relative flex flex-col items-center">
             <div className="header-detail h-[60vh]">
                 {detailMovie && (
                     <OverView
+                        key={detailMovie.id}
                         width={`100vw`}
                         height={`100%`}
                         linkBackGround={apiConfigImage.w1920H800Image(detailMovie.backdrop_path)}
@@ -75,6 +88,13 @@ function DetailMoviePage() {
                         }
                     />
                 )}
+            </div>
+            <div className="detail-movie w-[70vw] h-auto flex justify-center items-center">
+                <div className="detail-left flex-[2]">
+                    {cast && <GeneralBigItem inputList={cast} title={`Top Billed Cast`} />}
+                </div>
+                <div className="detail-right flex-[1]">
+                </div>
             </div>
         </div>
     );

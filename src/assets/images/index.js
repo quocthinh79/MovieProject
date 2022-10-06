@@ -11,6 +11,7 @@ const images = {
     addToWatchListIcon: require('~/assets/images/addToWatchListIcon.svg').default,
     startIcon: require('~/assets/images/startIcon.svg').default,
     optionCircleIcon: require('~/assets/images/optionCircleIcon.svg').default,
+    people: require('~/assets/images/people.svg').default,
 };
 
 export default images;

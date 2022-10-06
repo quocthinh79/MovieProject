@@ -11,6 +11,7 @@ export const apiConfigImage = {
     w335H299Image: (imgPath) => `https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${imgPath}`,
     w300H450Image: (imgPath) => `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${imgPath}`,
     w1920H800Image: (imgPath) => `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${imgPath}`,
+    avatarCast: (imgPath) => `https://www.themoviedb.org/t/p/w138_and_h175_face${imgPath}`,
 };
 export const apiConfigVideo = {
     youtubeEmbed: (idVideo) => `https://www.youtube.com/embed/${idVideo}`,
@@ -58,6 +59,11 @@ export const getPopularMovie = async (options, urlApi = '3/movie/popular') => {
 export const getDetailMovie = async (options, idMovie, urlApi = '3/movie') => {
     const res = await request.get(`${urlApi}/${idMovie}`, options);
     return res.data;
+};
+
+export const getCast = async (options, idMovie, urlApi = '3/movie') => {
+    const res = await request.get(`${urlApi}/${idMovie}/credits`, options);
+    return res.data.cast;
 };
 
 export default request;
