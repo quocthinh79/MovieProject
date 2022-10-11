@@ -71,4 +71,9 @@ export const getRecommendations = async (options, idMovie, urlApi = '3/movie') =
     return res.data.results;
 };
 
+export const getKeyWordsMovie = async (options, idMovie, urlApi = '3/movie') => {
+    const res = await request.get(`${urlApi}/${idMovie}/keywords`, options);
+    return res.data.keywords;
+};
+
 export default request;

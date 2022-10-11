@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import styles from './Button.module.scss';
@@ -13,6 +14,7 @@ function Button({
     onClick,
     linear = false,
     disable = false,
+    keyword = false,
     tippy = false,
     content = '',
     placement = '',
@@ -27,6 +29,7 @@ function Button({
         linear,
         circle,
         primaryShape,
+        keyword
     });
 
     const props = {
@@ -43,11 +46,11 @@ function Button({
         Component = 'a';
     }
 
-    let ComponentTippy = 'div';
+    let ComponentTippy = Fragment;
     if (tippy) {
         ComponentTippy = Tippy;
     } else {
-        ComponentTippy = 'div';
+        ComponentTippy = Fragment;
     }
 
     // Disable events

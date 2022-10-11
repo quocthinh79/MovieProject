@@ -12,6 +12,10 @@ const images = {
     startIcon: require('~/assets/images/startIcon.svg').default,
     optionCircleIcon: require('~/assets/images/optionCircleIcon.svg').default,
     people: require('~/assets/images/people.svg').default,
+    link: require('~/assets/images/linkImage.svg').default,
+    facebook: require('~/assets/images/facebookImage.svg').default,
+    twitter: require('~/assets/images/twitterIcon.svg').default,
+    instagram: require('~/assets/images/instagramIcon.svg').default,
 };
 
 export default images;

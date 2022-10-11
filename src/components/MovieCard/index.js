@@ -38,7 +38,7 @@ function MovieCard({
             style={{ border: `${borderBool ? `1px solid #ccc` : ''}`, boxShadow: `0 2px 8px rgb(0 0 0 / 10%)` }}
         >
             <div className="w-full h-[225px] rounded-[8px] relative">
-                <a href={routerLinkToPage}>
+                <a href={`/${routerLinkToPage}`}>
                     <img
                         className="w-full h-full rounded-[8px]"
                         src={`${apiConfigImage.w220H330Image(`${urlBackGroundMovie || urlAvatarCast}`)}`}

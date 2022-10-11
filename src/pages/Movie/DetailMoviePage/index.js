@@ -9,9 +9,11 @@ import {
     apiConfigVideo,
     getCast,
     getDetailMovie,
+    getKeyWordsMovie,
     getRecommendations,
     getTrailerOfMovie,
 } from '~/untils/request';
+import Social from './components/Social';
 
 function DetailMoviePage() {
     const params = useParams();
@@ -20,6 +22,7 @@ function DetailMoviePage() {
     const [detailMovie, setDetailMovie] = useState(null);
     const [cast, setCast] = useState(null);
     const [recommendations, setRecommendations] = useState(null);
+    const [keyWords, setKeyWords] = useState(null);
 
     useEffect(() => {
         const fetchApi = async (idMovie) => {
@@ -52,6 +55,16 @@ function DetailMoviePage() {
                 idMovie,
             );
             setRecommendations(resRecommendations);
+
+            const resKeyWords = await getKeyWordsMovie(
+                {
+                    params: {
+                        api_key: process.env.REACT_APP_API_KEY,
+                    },
+                },
+                idMovie,
+            );
+            setKeyWords(resKeyWords);
         };
         fetchApi(idMovie);
     }, [idMovie]);
@@ -116,11 +129,13 @@ function DetailMoviePage() {
                     )}
                 </div>
                 {detailMovie && (
-                    <div className="detail-right w-[calc(100vw/7)] h-24 flex flex-col mt-[60px]">
+                    <div className="detail-right w-[calc(100vw/7)] h-auto flex flex-col mt-[60px]">
+                        <Social />
                         <DescriptionItem title={`Status`} content={detailMovie.status} />
                         <DescriptionItem title={`Original Language`} content={detailMovie.original_language} />
                         <DescriptionItem title={`Budget`} content={detailMovie.budget} />
                         <DescriptionItem title={`Revenue`} content={detailMovie.revenue} />
+                        {keyWords && <DescriptionItem title={`Key words`} keyWords={keyWords} />}
                     </div>
                 )}
             </div>
